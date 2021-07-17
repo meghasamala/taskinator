@@ -1,10 +1,12 @@
-var tasks = []
-var pageContentEl = document.querySelector("#page-content")
 var taskIdCounter = 0
+
 var formEl = document.querySelector("#task-form");
 var tasksToDoEl = document.querySelector("#tasks-to-do");
 var tasksInProgressEl = document.querySelector("#tasks-in-progress");
 var tasksCompletedEl = document.querySelector("#tasks-completed");
+var pageContentEl = document.querySelector("#page-content")
+
+var tasks = []
 
 var createTaskEl = function(taskDataObj) {
     var listItemEl = document.createElement("li");
@@ -27,6 +29,7 @@ var createTaskEl = function(taskDataObj) {
 
     saveTasks()
     taskIdCounter++
+
 }
 
 var createTaskActions = function(taskId) {
@@ -99,8 +102,8 @@ var deleteTask = function(taskId) {
     var updatedTaskArr = [];
 
     for (var i = 0; i < tasks.length; i++) {
-    if (tasks[i].id !== parseInt(taskId)) {
-        updatedTaskArr.push(tasks[i]);
+        if (tasks[i].id !== parseInt(taskId)) {
+            updatedTaskArr.push(tasks[i]);
     }
     }
 
@@ -191,10 +194,10 @@ var saveTasks = function() {
 }
 
 var loadTasks = function() {
-    var tasks = localStorage.getItem("tasks", JSON.stringify(tasks))
+    tasks = localStorage.getItem("tasks")
     console.log(tasks)
     if (tasks === null) {
-        var tasks = []
+        tasks = []
         return false
     }
     tasks = JSON.parse(tasks);
@@ -225,7 +228,7 @@ var loadTasks = function() {
             listItemEl.querySelector("select[name='status-change']").selectedIndex = 1
             tasksInProgressEl.appendChild(listItemEl)
         }
-        else if (tasks[i].status === "complete") {
+        else if (tasks[i].status === "completed") {
             listItemEl.querySelector("select[name='status-change']").selectedIndex = 2
             tasksCompletedEl.appendChild(listItemEl)
         }
